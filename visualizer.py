@@ -25,7 +25,7 @@ class Visualizer:
         # Color the point in black.
         points_mask = np.zeros(shape=(len(self.points), 3))
         black_colors = np.zeros_like(points_mask)
-        pcd.colors = o3d.Vector3dVector(black_colors)
+        pcd.colors = o3d.utility.Vector3dVector(black_colors)
 
         # Set up visualizer.
         self.pcd = pcd
@@ -58,7 +58,7 @@ class Visualizer:
         colors = [edge.color for edge in edges]
         line_set = o3d.geometry.LineSet()
         points = np.array([(point.x, point.y, point.z) for point in self.points])
-        line_set.points = o3d.Vector3dVector(points)
+        line_set.points = o3d.utility.Vector3dVector(points)
         line_set.lines = o3d.utility.Vector2iVector(lines)
         line_set.colors = o3d.utility.Vector3dVector(colors)
 
@@ -72,9 +72,9 @@ class Visualizer:
 
         facets = np.asarray(facets).astype(np.int32)
         points_triangles = np.array([(point.x, point.y, point.z) for point in self.points])
-        mesh = o3d.TriangleMesh()
-        mesh.vertices = o3d.Vector3dVector(points_triangles)
-        mesh.triangles = o3d.Vector3iVector(facets)
+        mesh = o3d.geometry.TriangleMesh()
+        mesh.vertices = o3d.utility.Vector3dVector(points_triangles)
+        mesh.triangles = o3d.utility.Vector3iVector(facets)
 
         # Manual fix since i don't define the vertices of a triangle clockwise. If they are anti-clockwise, open3d
         # won't render their mesh.
